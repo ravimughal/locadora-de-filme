@@ -31,15 +31,19 @@ def cliente():
             else:
                 return None
         else:
-            pass
+            for i in range(len(pessoas) - 1):
+                if pessoas[i] == alguem:
+                    del(pessoas[i])
+            cadastrar_pessoa()        
 
     def excluir_pessoa(pessoas):
         alone = pesquisar_pessoa(pessoas)
         if alone == None:
             print("Pessoa não localizadas.")
         else:
-            for i in range(len(pessoas)):
-                if pessoas[i] == alone:
+            #excluindo pessoa
+            for i in range(len(pessoas) -1): #para i dentro da lista pessoas
+                if pessoas[i] == alone: 
                     del(pessoas[i])
 
     def pesquisar_pessoa(pessoas):
