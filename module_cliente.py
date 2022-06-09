@@ -1,3 +1,6 @@
+from turtle import clear
+
+
 def cliente():
     def menu(ops):
         print("*" * 30)
@@ -30,12 +33,14 @@ def cliente():
         else:
             pass
 
-    def excluir_pessoa(pessoas, nome):
+    def excluir_pessoa(pessoas):
         alone = pesquisar_pessoa(pessoas)
         if alone == None:
             print("Pessoa não localizadas.")
         else:
-            del pessoas[nome]
+            for i in range(len(pessoas)):
+                if pessoas[i] == alone:
+                    del(pessoas[i])
 
     def pesquisar_pessoa(pessoas):
         nome = input("Qual pessoa deseja localizar? ")
