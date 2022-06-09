@@ -1,6 +1,4 @@
 def cliente():
-    print("funcionando")
-
     def menu(ops):
         print("*" * 30)
         for op in ops:
@@ -63,12 +61,11 @@ def cliente():
             elif op == 5:
                 break
 
-    if __name__ == '__main__':
-        pessoas = []
-        ops = ("1. Cadastrar pessoa",
-               "2. Editar pessoa",
-               "3. Excluir pessoa",
-               "4. Pesquisar pessoa",
-               "5. Sair")
-        start(ops, pessoas)
-        print(pessoas)
+    pessoas = []
+    ops = ("1. Cadastrar pessoa",
+            "2. Editar pessoa",
+            "3. Excluir pessoa",
+            "4. Pesquisar pessoa",
+            "5. Sair")
+    start(ops, pessoas)
+    print(pessoas)

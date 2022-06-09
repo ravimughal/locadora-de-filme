@@ -22,3 +22,4 @@ select = int(input("\033[1;36mSelecionar opção:\033[1;36m"))
 if select == 1:
     print("xereca")
     module_cliente.cliente()
+    
