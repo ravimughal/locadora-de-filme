@@ -1,5 +1,6 @@
 def cliente():
     print("funcionando")
+
     def menu(ops):
         print("*" * 30)
         for op in ops:
@@ -19,7 +20,6 @@ def cliente():
         }
         return pessoa
 
-
     def editar_pessoa(pessoas):
         alguem = pesquisar_pessoa(pessoas)
         if alguem == None:
@@ -32,7 +32,6 @@ def cliente():
         else:
             pass
 
-
     def excluir_pessoa(pessoas, nome):
         alone = pesquisar_pessoa(pessoas)
         if alone == None:
@@ -40,14 +39,12 @@ def cliente():
         else:
             del pessoas[nome]
 
-
     def pesquisar_pessoa(pessoas):
         nome = input("Qual pessoa deseja localizar? ")
         for pessoa in pessoas:
             if pessoa["nome"] == nome:
                 return pessoa
         return None
-
 
     def start(ops, pessoas):
         while True:
@@ -66,13 +63,12 @@ def cliente():
             elif op == 5:
                 break
 
-
     if __name__ == '__main__':
         pessoas = []
         ops = ("1. Cadastrar pessoa",
-            "2. Editar pessoa",
-            "3. Excluir pessoa",
-            "4. Pesquisar pessoa",
-            "5. Sair")
+               "2. Editar pessoa",
+               "3. Excluir pessoa",
+               "4. Pesquisar pessoa",
+               "5. Sair")
         start(ops, pessoas)
         print(pessoas)
