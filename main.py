@@ -1,5 +1,6 @@
 import module_cliente
 import module_filmes
+import module_jogos
 
 print("\033[1;35m-\033[m"*100)
 print("\033[1;35mLazywax\033[m")
@@ -21,8 +22,8 @@ print("\033[1;36m[4] Gerenciar lançamento:\033[m")
 select = int(input("\033[1;36mSelecionar opção:\033[1;36m"))
 
 if select == 1:
-    print("xereca")
     module_cliente.cliente()
 elif select == 2:
-    print("penis ereto")
     module_filmes.filmes()
+elif select == 3:
+    module_jogos.jogos()
