@@ -1,23 +1,21 @@
-from turtle import clear
-
-
 def cliente():
     def menu(ops):
-        print("*" * 30)
+        print("-" * 30)
         for op in ops:
             print(op)
-        print("*" * 30)
+        print("-" * 30)
         op = int(input("Qual opção deseja escolher: "))
         return op
 
     def cadastrar_pessoa():
         nome = input("Digite o nome: ")
         idade = int(input("Digite a idade: "))
-        cidade = input("Digite a cidade: ")
+        #falta validar o cpf (cpf teste: 11111111111)
+        cpf = input("Digite o cpf: ")
         pessoa = {
             "nome": nome,
             "idade": idade,
-            "cidade": cidade
+            "cpf": cpf
         }
         return pessoa
 
@@ -47,9 +45,9 @@ def cliente():
                     del(pessoas[i])
 
     def pesquisar_pessoa(pessoas):
-        nome = input("Qual pessoa deseja localizar? ")
+        cpf = input("Qual pessoa deseja localizar? (Digite o cpf)")
         for pessoa in pessoas:
-            if pessoa["nome"] == nome:
+            if pessoa["cpf"] == cpf:
                 return pessoa
         return None
 
