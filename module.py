@@ -1,3 +1,5 @@
+import csv
+
 def cliente():
     def menu(ops):
         print("-" * 30)
@@ -10,13 +12,35 @@ def cliente():
     def cadastrar_pessoa():
         nome = input("Digite o nome: ")
         idade = int(input("Digite a idade: "))
+        idade = str(idade)
         # falta validar o cpf (cpf teste: 11111111111)
         cpf = input("Digite o cpf: ")
+
         pessoa = {
             "nome": nome,
             "idade": idade,
             "cpf": cpf
         }
+
+        fields = ['Nome', 'Idade', 'CPF']   
+      
+        rows = [[nome, idade, cpf], ]  
+            
+        filename = "university_records.csv"
+            
+        with open(filename, 'w', newline='') as csvfile:   
+            
+            csvwriter = csv.writer(csvfile)   
+                
+            
+            csvwriter.writerow(fields)   
+                
+            
+            csvwriter.writerows(rows) 
+
+
+
+
         print("Pessoa cadastrada com sucesso")
         return pessoa
 
