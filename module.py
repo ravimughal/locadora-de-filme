@@ -18,14 +18,17 @@ def cliente():
         cpf = input("Digite seu cpf: ")
         idade = input("Digite sua idade: ")
 
-        pessoa[cpf] = [nome, idade]
+        pessoa[cpf] = [nome, idade] #buscar cliente cadastrado através de cpf
 
-        colunas = ['cpf', 'nome', 'idade']
+        colunas = ['cpf', 'nome', 'idade'] #colunas da tabela .csv
         file_exists = os.path.isfile('clientes.csv')
         with open('clientes.csv', 'a', newline='') as clientes_csv:
+            #DictWriter grava dados no formato de dicionário
             cadastrar = csv.DictWriter(
-                clientes_csv, fieldnames=colunas, delimiter=';', lineterminator='\r\n')
+                clientes_csv, fieldnames=colunas, delimiter=';', lineterminator='\r\n') #fieldnames = nome de campos, ou seja -> colunas, divisor de dados sendo ';', lineterminator \r\n serve para quebrar a linha
+            #caso não existe o arquivo 'file_exist', faz o fieldnames funcionar, visto que há o 'writeheader()'
             if not file_exists:
+                #writeheader grava a primeira linha de arquivo csv usando os nomes de campo pré-especificados.
                 cadastrar.writeheader()
             # escrever nas linhas em respectivas 'keys' e 'values', title() -> deixar letra maiuscula
             cadastrar.writerow(
