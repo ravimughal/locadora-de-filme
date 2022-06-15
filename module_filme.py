@@ -1,3 +1,6 @@
+import csv
+import os
+
 def filmes():
     def menu(ops):
         print("-" * 30)
@@ -7,11 +10,23 @@ def filmes():
         op = int(input("Qual opção deseja escolher: "))
         return op
 
+     
     def cadastrar_filme():
+        filme = {}
         nome = input("Digite o nome: ")
         ano = int(input("Digite o ano de lançamento: "))
-        # falta validar o cpf (cpf teste: 11111111111)
         categoria = input("Digite a categoria do filme: ")
+        filme[nome] =[ano,categoria]
+
+        colunas = ['nome', 'ano', 'categoria'] 
+        file_exists = os.path.isfile('filmes.csv')
+        with open('filmes.csv', 'a', newline='') as filme_csv:
+            cadastrar = csv.DictWriter(
+                filme_csv, fieldnames=colunas, delimiter=';', lineterminator='\r\n')
+        print('Cadastro realizado com sucesso!')
+        return filme
+
+        
         filme = {
             "nome": nome,
             "ano": ano,
@@ -34,6 +49,7 @@ def filmes():
                     del(filmes[i])
             cadastrar_filme()
 
+
     def excluir_filme(filmes):
         alone = pesquisar_filme(filmes)
         if alone == None:
@@ -44,6 +60,8 @@ def filmes():
                 if filmes[i] == alone:
                     del(filmes[i])
 
+
+  
     def pesquisar_filme(filmes):
         nome = input("Qual filme deseja localizar? (Digite o nome)")
         for filme in filmes:

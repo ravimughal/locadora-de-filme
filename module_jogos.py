@@ -1,3 +1,6 @@
+import csv
+import os
+
 def jogos():
     def menu(ops):
         print("-" * 30)
@@ -8,10 +11,19 @@ def jogos():
         return op
 
     def cadastrar_jogo():
+        jogo = {}
         nome = input("Digite o nome: ")
         ano = int(input("Digite o ano de lançamento: "))
-        # falta validar o cpf (cpf teste: 11111111111)
         categoria = input("Digite a categoria do jogo: ")
+        jogo[ano] = [nome,categoria]
+
+        colunas = ['nome','ano','categoria']
+        file_exists = os.path.isfile('jogo.csv')
+        with open('jogos.csv','a', newline='') as jogo_csv:
+            cadastrar_jogo = csv.DictWriter(
+                jogo_csv, fieldnames=colunas, delimiter=';',lineterminator='\r\n')
+        return jogo
+
         jogo = {
             "nome": nome,
             "ano": ano,
