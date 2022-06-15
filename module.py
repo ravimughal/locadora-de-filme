@@ -1,4 +1,6 @@
 import csv
+import os
+
 
 def cliente():
     def menu(ops):
@@ -10,38 +12,26 @@ def cliente():
         return op
 
     def cadastrar_pessoa():
-        nome = input("Digite o nome: ")
-        idade = int(input("Digite a idade: "))
-        idade = str(idade)
-        # falta validar o cpf (cpf teste: 11111111111)
-        cpf = input("Digite o cpf: ")
+        pessoa = {}
 
-        pessoa = {
-            "nome": nome,
-            "idade": idade,
-            "cpf": cpf
-        }
+        nome = input("Digite seu nome: ")
+        cpf = input("Digite seu cpf: ")
+        idade = input("Digite sua idade: ")
 
-        fields = ['Nome', 'Idade', 'CPF']   
-      
-        rows = [[nome, idade, cpf], ]  
-            
-        filename = "university_records.csv"
-            
-        with open(filename, 'w', newline='') as csvfile:   
-            
-            csvwriter = csv.writer(csvfile)   
-                
-            
-            csvwriter.writerow(fields)   
-                
-            
-            csvwriter.writerows(rows) 
+        pessoa[cpf] = [nome, idade]
 
+        colunas = ['cpf', 'nome', 'idade']
+        file_exists = os.path.isfile('clientes.csv')
+        with open('clientes.csv', 'a', newline='') as clientes_csv:
+            cadastrar = csv.DictWriter(
+                clientes_csv, fieldnames=colunas, delimiter=';', lineterminator='\r\n')
+            if not file_exists:
+                cadastrar.writeheader()
+            # escrever nas linhas em respectivas 'keys' e 'values', title() -> deixar letra maiuscula
+            cadastrar.writerow(
+                {'cpf': cpf, 'nome': nome.title(), 'idade': idade})
 
-
-
-        print("Pessoa cadastrada com sucesso")
+        print('Cadastro realizado com sucesso!')
         return pessoa
 
     def editar_pessoa(pessoas):
@@ -104,6 +94,7 @@ def cliente():
     start(ops, pessoas)
     print(pessoas)
 
+
 def filmes():
     def menu(ops):
         print("-" * 30)
@@ -116,7 +107,7 @@ def filmes():
     def cadastrar_filme():
         nome = input("Digite o nome: ")
         ano = int(input("Digite o ano de lançamento: "))
-        #falta validar o cpf (cpf teste: 11111111111)
+        # falta validar o cpf (cpf teste: 11111111111)
         categoria = input("Digite a categoria do filme: ")
         filme = {
             "nome": nome,
@@ -138,16 +129,16 @@ def filmes():
             for i in range(len(filmes) - 1):
                 if filmes[i] == alguem:
                     del(filmes[i])
-            cadastrar_filme()        
+            cadastrar_filme()
 
     def excluir_filme(filmes):
         alone = pesquisar_filme(filmes)
         if alone == None:
             print("filme não localizadas.")
         else:
-            #excluindo filme
-            for i in range(len(filmes) -1): #para i dentro da lista filmes
-                if filmes[i] == alone: 
+            # excluindo filme
+            for i in range(len(filmes) - 1):  # para i dentro da lista filmes
+                if filmes[i] == alone:
                     del(filmes[i])
 
     def pesquisar_filme(filmes):
@@ -176,12 +167,13 @@ def filmes():
 
     filmes = []
     ops = ("1. Cadastrar filme",
-            "2. Editar filme",
-            "3. Excluir filme",
-            "4. Pesquisar filme",
-            "5. Sair")
+           "2. Editar filme",
+           "3. Excluir filme",
+           "4. Pesquisar filme",
+           "5. Sair")
     start(ops, filmes)
     print(filmes)
+
 
 def jogos():
     def menu(ops):
@@ -195,7 +187,7 @@ def jogos():
     def cadastrar_jogo():
         nome = input("Digite o nome: ")
         ano = int(input("Digite o ano de lançamento: "))
-        #falta validar o cpf (cpf teste: 11111111111)
+        # falta validar o cpf (cpf teste: 11111111111)
         categoria = input("Digite a categoria do jogo: ")
         jogo = {
             "nome": nome,
@@ -217,16 +209,16 @@ def jogos():
             for i in range(len(jogos) - 1):
                 if jogos[i] == alguem:
                     del(jogos[i])
-            cadastrar_jogo()        
+            cadastrar_jogo()
 
     def excluir_jogo(jogos):
         alone = pesquisar_jogo(jogos)
         if alone == None:
             print("jogo não localizadas.")
         else:
-            #excluindo jogo
-            for i in range(len(jogos) -1): #para i dentro da lista jogos
-                if jogos[i] == alone: 
+            # excluindo jogo
+            for i in range(len(jogos) - 1):  # para i dentro da lista jogos
+                if jogos[i] == alone:
                     del(jogos[i])
 
     def pesquisar_jogo(jogos):
@@ -255,9 +247,9 @@ def jogos():
 
     jogos = []
     ops = ("1. Cadastrar jogo",
-            "2. Editar jogo",
-            "3. Excluir jogo",
-            "4. Pesquisar jogo",
-            "5. Sair")
+           "2. Editar jogo",
+           "3. Excluir jogo",
+           "4. Pesquisar jogo",
+           "5. Sair")
     start(ops, jogos)
     print(jogos)
