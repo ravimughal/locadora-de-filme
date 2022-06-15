@@ -1,4 +1,6 @@
-import module
+import module_cadastro
+import module_filme
+import module_jogos
 
 
 print("\033[1;35m-\033[m"*100)
@@ -21,11 +23,10 @@ print("\033[1;36m[4] Gerenciar lançamento:\033[m")
 select = int(input("\033[1;36mSelecionar opção:\033[1;36m"))
 
 if select == 1:
-    module.cliente()
+    module_cadastro.cliente()
 elif select == 2:
-    module.filmes()
+    module_filme.filmes()
 elif select == 3:
-    module.jogos()
+    module_jogos.jogos()
 elif select == 4:
     print("Em desenvolvimento")
-    
