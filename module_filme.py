@@ -12,30 +12,30 @@ def filmes():
 
      
     def cadastrar_filme():
-         filme = {}
+        filme = {}
 
-         nome = input("Digite o nome: ")
-         ano = int(input("Digite o ano de lançamento: "))
-         categoria = input("Digite a categoria do filme: ")
+        nome = input("Digite seu nome: ")
+        ano = input("Digite seu ano: ")
+        categoria = input("Digite sua categoria: ")
 
-         filme[nome] =[ano,categoria]
-         colunas = ['nome','ano','categoria']
-         file_exists = os.path.isfile('filme.csv')
-         print(file_exists)
-         with open('filmes.csv', 'a', newline='') as filmes_csv:
-            cadastrar_filme = csv.DictWriter(
-                filmes_csv , fieldnames=colunas, delimiter=';', lineterminator='\r\n')
+        filme[ano] = [nome, categoria] #buscar cliente cadastrado através de ano
+
+        colunas = ['ano', 'nome', 'categoria'] #colunas da tabela .csv
+        file_exists = os.path.isfile('clientes.csv')
+        with open('clientes.csv', 'a', newline='') as clientes_csv:
+            #DictWriter grava dados no formato de dicionário
+            cadastrar = csv.DictWriter(
+                clientes_csv, fieldnames=colunas, delimiter=';', lineterminator='\r\n') #fieldnames = nome de campos, ou seja -> colunas, divisor de dados sendo ';', lineterminator \r\n serve para quebrar a linha
+            #caso não existe o arquivo 'file_exist', faz o fieldnames funcionar, visto que há o 'writeheader()'
             if not file_exists:
-                cadastrar_filme.writeheader()
-            cadastrar_filme.writerow(
-                {'nome': nome.title(), 'ano': ano,'categoria': categoria})
-         print('Cadastro realizado com sucesso!')
-         return filme
-         filme = {
-            "nome": nome,
-            "ano": ano,
-            "categoria": categoria
-        }
+                #writeheader grava a primeira linha de arquivo csv usando os nomes de campo pré-especificados.
+                cadastrar.writeheader()
+            # escrever nas linhas em respectivas 'keys' e 'values', title() -> deixar letra maiuscula
+            cadastrar.writerow(
+                {'ano': ano, 'nome': nome.title(), 'categoria': categoria})
+
+        print('Cadastro realizado com sucesso!')
+        return filme
         
 
     def editar_filme(filmes):
