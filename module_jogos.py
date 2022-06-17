@@ -16,12 +16,9 @@ def jogos():
         ano = int(input("Digite o ano de lançamento: "))
         categoria = input("Digite a categoria do jogo: ")
         jogo[ano] = [nome,categoria]
+        
+        
 
-        colunas = ['nome','ano','categoria']
-        file_exists = os.path.isfile('jogo.csv')
-        with open('jogos.csv','a', newline='') as jogo_csv:
-            cadastrar_jogo = csv.DictWriter(
-                jogo_csv, fieldnames=colunas, delimiter=';',lineterminator='\r\n')
         return jogo
 
         jogo = {

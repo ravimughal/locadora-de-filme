@@ -12,27 +12,31 @@ def filmes():
 
      
     def cadastrar_filme():
-        filme = {}
-        nome = input("Digite o nome: ")
-        ano = int(input("Digite o ano de lançamento: "))
-        categoria = input("Digite a categoria do filme: ")
-        filme[nome] =[ano,categoria]
+         filme = {}
 
-        colunas = ['nome', 'ano', 'categoria'] 
-        file_exists = os.path.isfile('filmes.csv')
-        with open('filmes.csv', 'a', newline='') as filme_csv:
-            cadastrar = csv.DictWriter(
-                filme_csv, fieldnames=colunas, delimiter=';', lineterminator='\r\n')
-        print('Cadastro realizado com sucesso!')
-        return filme
+         nome = input("Digite o nome: ")
+         ano = int(input("Digite o ano de lançamento: "))
+         categoria = input("Digite a categoria do filme: ")
 
-        
-        filme = {
+         filme[nome] =[ano,categoria]
+         colunas = ['nome','ano','categoria']
+         file_exists = os.path.isfile('filme.csv')
+         print(file_exists)
+         with open('filmes.csv', 'a', newline='') as filmes_csv:
+            cadastrar_filme = csv.DictWriter(
+                filmes_csv , fieldnames=colunas, delimiter=';', lineterminator='\r\n')
+            if not file_exists:
+                cadastrar_filme.writeheader()
+            cadastrar_filme.writerow(
+                {'nome': nome.title(), 'ano': ano,'categoria': categoria})
+         print('Cadastro realizado com sucesso!')
+         return filme
+         filme = {
             "nome": nome,
             "ano": ano,
             "categoria": categoria
         }
-        return filme
+        
 
     def editar_filme(filmes):
         alguem = pesquisar_filme(filmes)
