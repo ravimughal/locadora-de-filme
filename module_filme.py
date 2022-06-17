@@ -21,11 +21,11 @@ def filmes():
         filme[ano] = [nome, categoria] #buscar cliente cadastrado através de ano
 
         colunas = ['ano', 'nome', 'categoria'] #colunas da tabela .csv
-        file_exists = os.path.isfile('clientes.csv')
-        with open('clientes.csv', 'a', newline='') as clientes_csv:
+        file_exists = os.path.isfile('filmes.csv')
+        with open('filmes.csv', 'a', newline='') as filmes_csv:
             #DictWriter grava dados no formato de dicionário
             cadastrar = csv.DictWriter(
-                clientes_csv, fieldnames=colunas, delimiter=';', lineterminator='\r\n') #fieldnames = nome de campos, ou seja -> colunas, divisor de dados sendo ';', lineterminator \r\n serve para quebrar a linha
+                filmes_csv, fieldnames=colunas, delimiter=';', lineterminator='\r\n') #fieldnames = nome de campos, ou seja -> colunas, divisor de dados sendo ';', lineterminator \r\n serve para quebrar a linha
             #caso não existe o arquivo 'file_exist', faz o fieldnames funcionar, visto que há o 'writeheader()'
             if not file_exists:
                 #writeheader grava a primeira linha de arquivo csv usando os nomes de campo pré-especificados.

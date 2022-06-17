@@ -12,13 +12,28 @@ def jogos():
 
     def cadastrar_jogo():
         jogo = {}
+
         nome = input("Digite o nome: ")
         ano = int(input("Digite o ano de lançamento: "))
         categoria = input("Digite a categoria do jogo: ")
-        jogo[ano] = [nome,categoria]
-        
-        
 
+        jogo[ano] = [nome,categoria]
+
+        colunas = ['ano', 'nome', 'categoria'] #colunas da tabela .csv
+        file_exists = os.path.isfile('jogos.csv')
+        with open('jogos.csv', 'a', newline='') as jogos_csv:
+            #DictWriter grava dados no formato de dicionário
+            cadastrar = csv.DictWriter(
+                jogos_csv, fieldnames=colunas, delimiter=';', lineterminator='\r\n') #fieldnames = nome de campos, ou seja -> colunas, divisor de dados sendo ';', lineterminator \r\n serve para quebrar a linha
+            #caso não existe o arquivo 'file_exist', faz o fieldnames funcionar, visto que há o 'writeheader()'
+            if not file_exists:
+                #writeheader grava a primeira linha de arquivo csv usando os nomes de campo pré-especificados.
+                cadastrar.writeheader()
+            # escrever nas linhas em respectivas 'keys' e 'values', title() -> deixar letra maiuscula
+            cadastrar.writerow(
+                {'ano': ano, 'nome': nome.title(), 'categoria': categoria})
+
+        print('Cadastro realizado com sucesso!')
         return jogo
 
         jogo = {
