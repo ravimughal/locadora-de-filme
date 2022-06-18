@@ -1,5 +1,8 @@
 import csv
+import enum
 import os
+
+pessoa = {}
 
 def cliente():
     def menu(ops):
@@ -11,7 +14,7 @@ def cliente():
         return op
 
     def cadastrar_pessoa():
-        pessoa = {}
+        
 
         nome = input("Digite seu nome: ")
         cpf = input("Digite seu cpf: ")
@@ -36,8 +39,8 @@ def cliente():
         print('Cadastro realizado com sucesso!')
         return pessoa
 
-    def editar_pessoa(pessoas):
-        alguem = pesquisar_pessoa(pessoas)
+    def editar_pessoa():
+        alguem = pesquisar_pessoa()
         if alguem == None:
             print("Pessoa não localizada.")
             op = input("Gostaria de cadastrá-la? (s/n)")
@@ -46,52 +49,63 @@ def cliente():
             else:
                 return None
         else:
-            for i in range(len(pessoas) - 1):
-                if pessoas[i] == alguem:
-                    del(pessoas[i])
+            for i in range(len() - 1):
+                if [i] == alguem:
+                    del([i])
             cadastrar_pessoa()
 
-    def excluir_pessoa(pessoas):
-        alone = pesquisar_pessoa(pessoas)
+    def excluir_pessoa():
+        alone = pesquisar_pessoa()
         if alone == None:
             print("Pessoa não localizadas.")
         else:
             # excluindo pessoa
-            for i in range(len(pessoas)):  # para i dentro da lista pessoas
-                if pessoas[i] == alone:
+            for i in range(len()):  # para i dentro da lista 
+                if [i] == alone:
                     conf = input("Deseja confirmar exclusão? (s/n)")
                     if conf in "Ss":
-                        del(pessoas[i])
+                        del([i])
 
-    def pesquisar_pessoa(pessoas):
+    def pesquisar_pessoa():
         cpf = input("Qual pessoa deseja localizar? (Digite o cpf)")
-        for pessoa in pessoas:
-            if pessoa["cpf"] == cpf:
-                return pessoa
-        return None
+        with open('clientes.csv') as clientes_csv:
+            reader_obj = csv.reader(clientes_csv, delimiter=';')
+      
+            # Iterate over each row in the csv file
+            # using reader object
+            linhas = 0
+            
+            for coluna in reader_obj:
+                if linhas == 0:
+                    linhas += 1
+                else:
+                    if coluna[0] == cpf:
+                        print(f"Nome: {coluna[1]}")
 
-    def start(ops, pessoas):
+                
+        
+        
+
+
+    def start(ops):
         while True:
             op = menu(ops)
             if op == 1:
-                pessoa = cadastrar_pessoa()
-                pessoas.append(pessoa)
+                cadastrar_pessoa()
             elif op == 2:
-                pessoa = editar_pessoa(pessoas)
+                editar_pessoa()
             elif op == 3:
-                alone = excluir_pessoa(pessoas)
+                excluir_pessoa()
             elif op == 4:
-                alguem = pesquisar_pessoa(pessoas)
+                alguem = pesquisar_pessoa()
                 if alguem != None:
                     print(alguem)
             elif op == 5:
                 break
 
-    pessoas = []
     ops = ("1. Cadastrar pessoa",
            "2. Editar pessoa",
            "3. Excluir pessoa",
            "4. Pesquisar pessoa",
            "5. Sair")
-    start(ops, pessoas)
-    print(pessoas)
+    start(ops)

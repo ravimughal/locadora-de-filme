@@ -36,12 +36,6 @@ def jogos():
         print('Cadastro realizado com sucesso!')
         return jogo
 
-        jogo = {
-            "nome": nome,
-            "ano": ano,
-            "categoria": categoria
-        }
-        return jogo
 
     def editar_jogo(jogos):
         alguem = pesquisar_jogo(jogos)
