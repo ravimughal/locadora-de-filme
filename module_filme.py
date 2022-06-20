@@ -157,4 +157,3 @@ def filmes():
             "7. Listar Empréstimos",
             "10. Sair")
     start(ops, filmes)
-    print(filmes)
