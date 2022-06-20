@@ -1,5 +1,6 @@
 import csv
 import os
+import pandas as pd
 
 def filmes():
     def menu(ops):
@@ -25,7 +26,7 @@ def filmes():
         with open('filmes.csv', 'a', newline='') as filmes_csv:
             #DictWriter grava dados no formato de dicionário
             cadastrar = csv.DictWriter(
-                filmes_csv, fieldnames=colunas, delimiter=';', lineterminator='\r\n') #fieldnames = nome de campos, ou seja -> colunas, divisor de dados sendo ';', lineterminator \r\n serve para quebrar a linha
+                filmes_csv, fieldnames=colunas, delimiter=',', lineterminator='\r\n') #fieldnames = nome de campos, ou seja -> colunas, divisor de dados sendo ',', lineterminator \r\n serve para quebrar a linha
             #caso não existe o arquivo 'file_exist', faz o fieldnames funcionar, visto que há o 'writeheader()'
             if not file_exists:
                 #writeheader grava a primeira linha de arquivo csv usando os nomes de campo pré-especificados.
@@ -73,6 +74,12 @@ def filmes():
                 return filme
         return None
 
+    def listar_filme():
+        url = './filmes.csv'
+        df = pd.read_csv(url)
+
+        print(df)
+
     def start(ops, filmes):
         while True:
             op = menu(ops)
@@ -88,6 +95,8 @@ def filmes():
                 if alguem != None:
                     print(alguem)
             elif op == 5:
+                listar_filme()
+            elif op ==6:
                 break
 
     filmes = []
@@ -95,6 +104,7 @@ def filmes():
            "2. Editar filme",
            "3. Excluir filme",
            "4. Pesquisar filme",
-           "5. Sair")
+           "5. Listar filmes",
+           "6. Sair")
     start(ops, filmes)
     print(filmes)

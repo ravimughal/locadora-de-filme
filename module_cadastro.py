@@ -1,6 +1,6 @@
 import csv
-import enum
 import os
+import pandas as pd
 
 pessoa = {}
 
@@ -27,7 +27,7 @@ def cliente():
         with open('clientes.csv', 'a', newline='') as clientes_csv:
             #DictWriter grava dados no formato de dicionário
             cadastrar = csv.DictWriter(
-                clientes_csv, fieldnames=colunas, delimiter=';', lineterminator='\r\n') #fieldnames = nome de campos, ou seja -> colunas, divisor de dados sendo ';', lineterminator \r\n serve para quebrar a linha
+                clientes_csv, fieldnames=colunas, delimiter=',', lineterminator='\r\n') #fieldnames = nome de campos, ou seja -> colunas, divisor de dados sendo ';', lineterminator \r\n serve para quebrar a linha
             #caso não existe o arquivo 'file_exist', faz o fieldnames funcionar, visto que há o 'writeheader()'
             if not file_exists:
                 #writeheader grava a primeira linha de arquivo csv usando os nomes de campo pré-especificados.
@@ -54,38 +54,46 @@ def cliente():
                     del([i])
             cadastrar_pessoa()
 
+
     def excluir_pessoa():
+        
         alone = pesquisar_pessoa()
         if alone == None:
             print("Pessoa não localizadas.")
-        else:
-            # excluindo pessoa
-            for i in range(len()):  # para i dentro da lista 
-                if [i] == alone:
-                    conf = input("Deseja confirmar exclusão? (s/n)")
-                    if conf in "Ss":
-                        del([i])
+        else: 
+            with open('clientes.csv', 'w', newline='') as clientes_csv:
+                exl = csv.writer(clientes_csv)
+                
+                for row in exl:
+                    row[linhas] = []
+                
+
 
     def pesquisar_pessoa():
         cpf = input("Qual pessoa deseja localizar? (Digite o cpf)")
         with open('clientes.csv') as clientes_csv:
-            reader_obj = csv.reader(clientes_csv, delimiter=';')
-      
-            # Iterate over each row in the csv file
-            # using reader object
+            reader_obj = csv.reader(clientes_csv, delimiter=',')
+
+            global linhas 
             linhas = 0
-            
             for coluna in reader_obj:
                 if linhas == 0:
                     linhas += 1
                 else:
                     if coluna[0] == cpf:
-                        print(f"Nome: {coluna[1]}")
+                        pesquisado = coluna[1]
+                        print(f"Nome: {pesquisado} | idade: {coluna[2]}")
+                        return pesquisado
+                    else:
+                        linhas += 1
+            print("pessoa não localizada")
+            return None
 
-                
-        
-        
+    def lista_de_clientes():
+        url = './clientes.csv'
+        df = pd.read_csv(url)
 
+        print(df)
 
     def start(ops):
         while True:
@@ -101,11 +109,17 @@ def cliente():
                 if alguem != None:
                     print(alguem)
             elif op == 5:
+                lista_de_clientes()
+            elif op == 6:
                 break
 
     ops = ("1. Cadastrar pessoa",
            "2. Editar pessoa",
            "3. Excluir pessoa",
            "4. Pesquisar pessoa",
-           "5. Sair")
+           "5. Lista de clientes",
+           "6. Sair")
+    
+
+
     start(ops)
