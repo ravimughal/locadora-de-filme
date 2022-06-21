@@ -147,7 +147,6 @@ def filmes():
             elif op ==10:
                 break
 
-    filmes = []
     ops = ( "1. Cadastrar filme",
             "2. Editar filme",
             "3. Excluir filme",

@@ -61,11 +61,10 @@ def cliente():
         if alone == None:
             print("Pessoa não localizadas.")
         else: 
-            with open('clientes.csv', 'w', newline='') as clientes_csv:
-                exl = csv.writer(clientes_csv)
-                
-                for row in exl:
-                    row[linhas] = []
+            url = 'clientes.csv'
+            df = pd.read_csv(url)
+
+            print(df.iloc[linhas:])
                 
 
 
