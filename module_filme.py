@@ -123,35 +123,6 @@ def filmes():
         print(df)
 
 
-    def checkout():
-        pass
-        cpf = input("Digite o cpf do cliente: ")
-        print('\n------ EMPRÉSTIMOS ------\n')
-        cpf = input("Digite o cpf do cliente: ")
-        with open('clientes.csv') as clientes_csv:
-            reader_obj = csv.reader(clientes_csv, delimiter=',')
-
-            linhas = 0
-            for coluna in reader_obj:
-                if linhas == 0:
-                    linhas += 1
-                else:
-                    if coluna[0] == cpf:
-                        pesquisado = coluna[1]
-                        print(f"cpf: {pesquisado} | idade: {coluna[2]}")
-                        codigo_filme = input("Digite seu codigo_filme: ")
-                        #colocar situaçao de devolvido
-                        #se nao emprestaram, puxar para emprestimo
-
-    def calc_valor_final():
-        pass
-        # ligar com no emprestimo
-        valor = 0
-        days = int(input('Quantos dias sera alugado: '))
-        if days <= 7:
-            valor += 15
-        elif days > 7:
-            valor += 15 + days * 1.5
 
     def start(ops, filmes):
         while True:
@@ -173,10 +144,6 @@ def filmes():
                 realizar_emprestimo()
             elif op == 7:
                 listar_emprestimos()
-            elif op == 8:
-                checkout()
-            elif op == 9:
-                calc_valor_final()
             elif op ==10:
                 break
 
@@ -188,7 +155,5 @@ def filmes():
             "5. Listar filmes",
             "6. Registrar empréstimo",
             "7. Listar Empréstimos",
-            "8. Checkout",
-            "9. Valor do Empréstimo",
             "10. Sair")
     start(ops, filmes)
