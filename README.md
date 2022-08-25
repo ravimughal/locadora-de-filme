@@ -43,7 +43,7 @@ Tem como funcionalidade fazer um sistema de gerenciamento para uma Locadora de F
 <br>
 
 ## Colaboradores  
-<br>
+
 
 ### Ravi Mughal
 
