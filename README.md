@@ -51,8 +51,8 @@ Tem como funcionalidade fazer um sistema de gerenciamento para uma Locadora de F
 
 Desenvolvedor aluno da PUC-PR  
 
-<a src="https://github.com/ravimughal">Github</a>  
-<a src="https://www.linkedin.com/in/ravimughal/">Linkedin</a>
+[Github](https://github.com/ravimughal)  
+[Linkedin](https://www.linkedin.com/in/ravimughal/)
 
 <br>
 
@@ -61,8 +61,8 @@ Desenvolvedor aluno da PUC-PR
 
 Desenvolvedor aluno da PUC-PR
 
-<a src="https://github.com/Mateustozin">Github</a>  
-<a src="https://www.linkedin.com/in/mateus-augusto-tozin-ferreira-24045b235/">Linkedin</a>
+[Github](https://github.com/Mateustozin)  
+[Linkedin](https://www.linkedin.com/in/mateus-augusto-tozin-ferreira-24045b235/)
 
 <br>
 
@@ -72,6 +72,6 @@ Desenvolvedor aluno da PUC-PR
 
 Desenvolvedor aluno da PUC-PR
 
-<a src="https://github.com/felipesphair">Github</a>  
-<a src="https://www.linkedin.com/in/felipe-sphair-395109191/">Linkedin</a>
+[Github](https://github.com/felipesphair)  
+[Linkedin](https://www.linkedin.com/in/felipe-sphair-395109191/)
 
