@@ -14,10 +14,13 @@ print("\033[1;35mMateus Augusto Tozin, Julia Engels, R1avi Mughal, João Dadas e
 print("\033[1;35m-\033[1;34m"*100)
 # ---------------------------------------------------------------------------------------------
 
-
-
-
-
+def isnumber(value):
+    try:
+         float(value)
+    except ValueError:
+         return False
+    return True
+    
 while True:
     print()
     print("\033[1;36mBem vindo ao menu principal!\033[m")
@@ -26,16 +29,20 @@ while True:
     print("\033[1;36m[2] Gerenciamento de Filmes:\033[m")
     print("\033[1;36m[3] Gerenciamento de Jogos:\033[m")
     print("\033[1;36m[4] Sair do programa:\033[m \r\n ")
-    select = int(input("\033[1;36mSelecionar opção: \033[1;36m"))
 
-
-
-    if select == 1:
-        module_cadastro.cliente()
-    elif select == 2:
-        module_filme.filmes()
-    elif select == 3:
-        module_jogos.jogos()
-    elif select == 4:
-        print("Nunca é um adeus :)")
-        break
+    try:
+        select = int(input("\033[1;36mSelecionar opção: \033[1;36m"))
+        if isnumber(select):
+            if select == 1:
+                module_cadastro.cliente()
+            elif select == 2:
+                module_filme.filmes()
+            elif select == 3:
+                module_jogos.jogos()
+            elif select == 4:
+                print("Nunca é um adeus :)")
+                break   
+            else:
+                print('\033[31mERRO!\033[m')
+    except ValueError:
+        print('\033[31mERRO!\033[m')

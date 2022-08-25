@@ -1,81 +1,120 @@
 import csv
 import os
+from time import sleep
 import pandas as pd
+from pip import main
 
+filme = {}
 
 def filmes():
-    def menu(ops):
-        print("-" * 30)
-        for op in ops:
-            print(op)
-        print("-" * 30)
-        op = int(input("Qual opção deseja escolher: "))
-        return op
 
-    def cadastrar_filme():
-        filme = {}
+    def cadastrar_filme(): 
 
         nome = input("Digite seu nome: ")
         ano = input("Digite seu ano: ")
-        categoria = input("Digite sua categoria: ")
+        categoria = input("Digite a categoria: ")
 
-        # buscar cliente cadastrado através de ano
-        filme[ano] = [nome, categoria]
+        filme[nome] = [ano, categoria]
 
-        colunas = ['ano', 'nome', 'categoria']  # colunas da tabela .csv
-        file_exists = os.path.isfile('filmes.csv')
-        with open('filmes.csv', 'a', newline='') as filmes_csv:
-            # DictWriter grava dados no formato de dicionário
+        colunas = ['ano', 'nome', 'categoria']
+        file_exists = os.path.isfile('filme.csv')
+        with open('filme.csv', 'a', newline='') as filme_csv:
             cadastrar = csv.DictWriter(
-                filmes_csv, fieldnames=colunas, delimiter=',', lineterminator='\r\n')  # fieldnames = nome de campos, ou seja -> colunas, divisor de dados sendo ',', lineterminator \r\n serve para quebrar a linha
-            # caso não existe o arquivo 'file_exist', faz o fieldnames funcionar, visto que há o 'writeheader()'
+                filme_csv, fieldnames=colunas, delimiter=',', lineterminator='\r\n') 
             if not file_exists:
-                # writeheader grava a primeira linha de arquivo csv usando os nomes de campo pré-especificados.
                 cadastrar.writeheader()
-            # escrever nas linhas em respectivas 'keys' e 'values', title() -> deixar letra maiuscula
             cadastrar.writerow(
                 {'ano': ano, 'nome': nome.title(), 'categoria': categoria})
 
         print('Cadastro realizado com sucesso!')
-        return filme
+        return
 
-    def editar_filme(filmes):
-        alguem = pesquisar_filme(filmes)
-        if alguem == None:
-            print("filme não localizada.")
-            op = input("Gostaria de cadastrá-la? (s/n)")
-            if op == "s":
-                return cadastrar_filme()
-            else:
-                return None
-        else:
-            for i in range(len(filmes) - 1):
-                if filmes[i] == alguem:
-                    del(filmes[i])
-            cadastrar_filme()
 
-    def excluir_filme(filmes):
-        alone = pesquisar_filme(filmes)
-        if alone == None:
-            print("filme não localizadas.")
-        else:
-            # excluindo filme
-            for i in range(len(filmes) - 1):  # para i dentro da lista filmes
-                if filmes[i] == alone:
-                    del(filmes[i])
+    def editar_filme():  
+        url = './filme.csv'
+        df = pd.read_csv(url)
+        print(df) #IMPRIME A LISTA DE FILMES NO TERMINAL, PRA PESSOA SABER O ID
 
-    def pesquisar_filme(filmes):
-        nome = input("Qual filme deseja localizar? (Digite o nome)")
-        for filme in filmes:
-            if filme["nome"] == nome:
-                return filme
-        return None
+        line_count = 0      
+        idFilme = int(input("Digite o id do filme que vc quer ditar: "))  #PERGUNTA O ID QUE A PESSOA QUER EDITAR
+        idFilme += 2
+        newName = (input("Digite o novo filme: "))
+        newYear= int(input("Digite o ano: "))  #ARMAZENA AS NOVAS INFORMACOES EM VARIAVEIS
+        newCate = (input("Digite a categoria: "))
 
-    def listar_filme():
-        url = './filmes.csv'
+
+        with open("filme.csv", 'r') as f: #ABRE O CSV
+            reader = csv.reader(f, delimiter=',')
+
+            lines = [] #VETOR LINES
+            for line in reader:
+                    line_count += 1
+                    if idFilme == line_count: #CHECA SE O ID E IGUAL A LINHA DO CSV
+                        line[0] = newYear #SETA AS NOVAS INFORMACOES NO VETOR LINE
+                        line[1] = newName
+                        line[2] = newCate
+                    lines.append(line) #VETOR LINES PUXA O LINE
+
+        with open("filme.csv", 'w', newline='') as f:
+            writer = csv.writer(f, delimiter=',')
+            writer.writerows(lines)  #ESCREVE AS NOVAS INFORMACOES DO LINES NO CSV
+        return #VOLTA PARA O MENU FILMES
+
+
+    def excluir_filme():
+        url = './filme.csv'
+        df = pd.read_csv(url)
+        print(df) #IMPRIME A LISTA DE filme NO TERMINAL, PRA PESSOA SABER O ID
+
+        line_count = 0      
+        idFilme = int(input("Digite o id do filme que vc deseja excluir: "))  #PERGUNTA O ID QUE A PESSOA QUER EXCLUIR
+        idFilme += 2
+
+        with open("filme.csv", 'r') as f: #ABRE O CSV
+            reader = csv.reader(f, delimiter=',')
+
+            lines = [] #VETOR LINES
+            for line in reader:
+                    line_count += 1
+                    if idFilme == line_count: #CHECA SE O ID E IGUAL A LINHA DO CSV
+                        contador = line_count -1
+                    lines.append(line) #VETOR LINES PUXA O LINE
+                    
+        del lines[contador]
+        with open("filme.csv", 'w', newline='') as f:
+            writer = csv.writer(f, delimiter=',')
+            writer.writerows(lines)  #ESCREVE AS NOVAS INFORMACOES DO LINES NO CSV
+        return #VOLTA PARA O MENU
+                
+
+
+    def pesquisar_filme():
+        nome = input("Qual filme deseja localizar? (Digite o nome): ")
+        with open('filme.csv') as filme_csv:
+            reader_obj = csv.reader(filme_csv, delimiter=',')
+
+            linhas = float
+            linhas = 0
+            for coluna in reader_obj:
+                if linhas == 0:
+                    linhas += 1
+                else:
+                    if coluna[1] == nome:
+                        pesquisado = coluna[1]
+                        print(f"Nome: {pesquisado} | Ano: {coluna[0]} | Categoria: {coluna[2]}")
+                        return
+                    else:
+                        linhas += 1
+            print("Filme não localizado")
+            return
+
+
+    def lista_de_filme():
+        url = './filme.csv'
         df = pd.read_csv(url)
 
         print(df)
+        return
 
     def realizar_emprestimo():
         print('\n------ EMPRÉSTIMOS ------\n')
@@ -93,8 +132,9 @@ def filmes():
                         print(f"cpf: {pesquisado} | idade: {coluna[2]}")
                         codigo_filme = input("Digite seu codigo_filme: ")
                         data = input("Digite a data do filme: ")
+                        nf = input('Nome do filme: ')
 
-                        colunas = ['codigo do filme', 'cpf', 'nome', 'data']  # colunas da tabela .csv
+                        colunas = ['codigo do filme', 'cpf', 'nome', 'data', 'nome do filme']  # colunas da tabela .csv
                         file_exists = os.path.isfile('emprestimo.csv')
                         with open('emprestimo.csv', 'a', newline='') as emprestimo_csv:
                             # DictWriter grava dados no formato de dicionário
@@ -121,32 +161,65 @@ def filmes():
         url = './emprestimo.csv'
         df = pd.read_csv(url)
         print(df)
-
-
-
-    def start(ops, filmes):
+    
+        
+    def checkout():
+        print('\n------ Devoluçao ------\n')
         while True:
-            op = menu(ops)
-            if op == 1:
-                filme = cadastrar_filme()
-                filmes.append(filme)
-            elif op == 2:
-                filme = editar_filme(filmes)
-            elif op == 3:
-                alone = excluir_filme(filmes)
-            elif op == 4:
-                alguem = pesquisar_filme(filmes)
-                if alguem != None:
-                    print(alguem)
-            elif op == 5:
-                listar_filme()
-            elif op == 6:
-                realizar_emprestimo()
-            elif op == 7:
-                listar_emprestimos()
-            elif op ==10:
+            days = int(input("Digite os dias de aluguel: "))
+            if isnumber(days):
+                valor = days * 2
+                excluir_filme()
+                print("O valor final a pagar e de {}R$".format(valor))
                 break
+            else:
+                print('\033[31mERRO!\033[m')
+        return None
+        
 
+    def isnumber(value):
+        try:
+            float(value)
+        except ValueError:
+            return False
+        return True
+
+    def start(ops):
+        while True:
+
+            print("-" * 30)
+            for op in ops:
+                print(op)
+            print("-" * 30)
+
+            try:    
+                opt = int(input("Qual opção deseja escolher: "))
+                if isnumber(opt):
+                    if opt == 1:
+                        cadastrar_filme()
+                    elif opt == 2:
+                        editar_filme()
+                    elif opt == 3:
+                        excluir_filme()
+                    elif opt == 4:
+                        alguem = pesquisar_filme()
+                        if alguem != None:
+                            print(alguem)
+                    elif opt == 5:
+                        lista_de_filme()
+                    elif opt == 6:
+                        realizar_emprestimo()
+                    elif opt == 7:
+                        listar_emprestimos()
+                    elif opt == 8:
+                        checkout()
+                    elif opt == 9:
+                        break
+
+            except ValueError:
+                print('\033[31mERRO!\033[m')
+                
+                
     ops = ( "1. Cadastrar filme",
             "2. Editar filme",
             "3. Excluir filme",
@@ -154,5 +227,7 @@ def filmes():
             "5. Listar filmes",
             "6. Registrar empréstimo",
             "7. Listar Empréstimos",
-            "10. Sair")
-    start(ops, filmes)
+            "8. Devoluçao",
+            "9. Sair")
+
+    start(ops)
